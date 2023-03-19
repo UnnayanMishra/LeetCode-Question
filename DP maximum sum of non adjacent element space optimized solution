@@ -1,0 +1,22 @@
+#include <bits/stdc++.h> 
+using namespace std;
+int f(vector<int> &nums) {
+    int prev = 0;
+    int curr = nums[0];
+    for(int i=1; i<nums.size(); i++){
+        int temp = curr;
+        curr = max(nums[i] + prev, curr);
+        prev = temp;
+    }
+    return curr;
+}
+
+int maximumNonAdjacentSum(vector<int> &nums) {
+  // Write your code here.
+  vector<int> dp(nums.size(), -1);
+  return f( nums);
+  // int dp[nums.size()];
+  // dp[0]=nums[0];
+  // dp[1]=max(nums[1],nums[0]);
+  // for(int i=2 ; i <)
+}
