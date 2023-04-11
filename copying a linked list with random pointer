@@ -1,0 +1,41 @@
+class Solution {
+public:
+    Node* copyRandomList(Node* head) {
+        if (!head) return nullptr;
+        
+        Node* s = new Node(0);
+        s->next = head;
+        Node* prev = head, *nxt = head->next;
+        
+        // create copy nodes and update next pointers
+        while (prev) {
+            Node* copy = new Node(prev->val);
+            prev->next = copy;
+            copy->next = nxt;
+            prev = nxt;
+            if (nxt) nxt = nxt->next;
+        }
+        
+        // update random pointers
+        prev = head;
+        while (prev) {
+            if (prev->random) {
+                prev->next->random = prev->random->next;
+            }
+            prev = prev->next->next;
+        }
+        
+        // separate original and copy lists
+        prev = head;
+        Node* copyHead = head->next;
+        nxt = copyHead;
+        while (prev) {
+            prev->next = nxt->next;
+            prev = prev->next;
+            if (prev) nxt->next = prev->next;
+            nxt = nxt->next;
+        }
+        
+        return copyHead;
+    }
+};
